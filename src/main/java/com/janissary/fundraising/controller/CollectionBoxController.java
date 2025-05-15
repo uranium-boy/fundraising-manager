@@ -1,0 +1,55 @@
+package com.janissary.fundraising.controller;
+
+import com.janissary.fundraising.dto.CollectionBoxDto;
+import com.janissary.fundraising.request.AssignBoxRequest;
+import com.janissary.fundraising.request.CreateCollectionBoxRequest;
+import com.janissary.fundraising.request.DonateMoneyRequest;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+public class CollectionBoxController {
+    @PostMapping("/boxes")
+    public ResponseEntity<CollectionBoxDto> createBox(@RequestBody CreateCollectionBoxRequest createRequest) {
+        // TODO: create new box, return newly created box
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @GetMapping("/boxes")
+    public ResponseEntity<List<CollectionBoxDto>> getBoxes() {
+        // TODO: return all boxes, don't specify the event, no actual value
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @PostMapping("/boxes/{id}/assign")
+    public ResponseEntity<Void> assignBoxToEvent(
+            @PathVariable Long id,
+            @RequestBody AssignBoxRequest assignRequest
+    ) {
+        // TODO: assign collection box lmao
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @PostMapping("/boxes/{id}/donate")
+    public ResponseEntity<Void> donateMoney(
+            @PathVariable Long id,
+            @RequestBody DonateMoneyRequest req
+            ) {
+        // TODO: add money to current amount
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @PostMapping("/boxes/{id}/transfer")
+    public ResponseEntity<Void> transferMoney(@PathVariable Long id) {
+        // TODO: clear account, convert currencies and add to event's account
+        throw new UnsupportedOperationException("TODO");
+    }
+
+    @DeleteMapping("/boxes/{id}")
+    public ResponseEntity<Void> unregisterBox(@PathVariable Long id) {
+        // TODO: don't transfer money, delete box
+        throw new UnsupportedOperationException("TODO");
+    }
+}
