@@ -5,6 +5,7 @@ import com.janissary.fundraising.request.AssignBoxRequest;
 import com.janissary.fundraising.request.CreateCollectionBoxRequest;
 import com.janissary.fundraising.request.DonateMoneyRequest;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,7 @@ public class CollectionBoxController {
             @RequestBody @Valid AssignBoxRequest assignRequest
     ) {
         // TODO: assign collection box lmao
-        throw new UnsupportedOperationException("TODO");
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     @PostMapping("/boxes/{id}/donate")
@@ -39,7 +40,7 @@ public class CollectionBoxController {
             @RequestBody @Valid DonateMoneyRequest req
             ) {
         // TODO: add money to current amount
-        throw new UnsupportedOperationException("TODO");
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     @PostMapping("/boxes/{id}/transfer")
