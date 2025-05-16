@@ -4,6 +4,7 @@ import com.janissary.fundraising.dto.CollectionBoxDto;
 import com.janissary.fundraising.request.AssignBoxRequest;
 import com.janissary.fundraising.request.CreateCollectionBoxRequest;
 import com.janissary.fundraising.request.DonateMoneyRequest;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @RestController
 public class CollectionBoxController {
     @PostMapping("/boxes")
-    public ResponseEntity<CollectionBoxDto> createBox(@RequestBody CreateCollectionBoxRequest createRequest) {
+    public ResponseEntity<CollectionBoxDto> createBox(@RequestBody @Valid CreateCollectionBoxRequest createRequest) {
         // TODO: create new box, return newly created box
         throw new UnsupportedOperationException("TODO");
     }
@@ -26,7 +27,7 @@ public class CollectionBoxController {
     @PostMapping("/boxes/{id}/assign")
     public ResponseEntity<Void> assignBoxToEvent(
             @PathVariable Long id,
-            @RequestBody AssignBoxRequest assignRequest
+            @RequestBody @Valid AssignBoxRequest assignRequest
     ) {
         // TODO: assign collection box lmao
         throw new UnsupportedOperationException("TODO");
@@ -35,7 +36,7 @@ public class CollectionBoxController {
     @PostMapping("/boxes/{id}/donate")
     public ResponseEntity<Void> donateMoney(
             @PathVariable Long id,
-            @RequestBody DonateMoneyRequest req
+            @RequestBody @Valid DonateMoneyRequest req
             ) {
         // TODO: add money to current amount
         throw new UnsupportedOperationException("TODO");
