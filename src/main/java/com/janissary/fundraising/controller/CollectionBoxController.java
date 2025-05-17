@@ -1,9 +1,9 @@
 package com.janissary.fundraising.controller;
 
 import com.janissary.fundraising.dto.CollectionBoxDto;
-import com.janissary.fundraising.request.AssignBoxRequest;
-import com.janissary.fundraising.request.CreateCollectionBoxRequest;
-import com.janissary.fundraising.request.DonateMoneyRequest;
+import com.janissary.fundraising.dto.request.AssignBoxRequest;
+import com.janissary.fundraising.dto.request.CreateCollectionBoxRequest;
+import com.janissary.fundraising.dto.request.DonateMoneyRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

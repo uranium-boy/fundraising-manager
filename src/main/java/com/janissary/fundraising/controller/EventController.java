@@ -1,7 +1,9 @@
 package com.janissary.fundraising.controller;
 
 import com.janissary.fundraising.dto.EventDto;
-import com.janissary.fundraising.request.CreateEventRequest;
+import com.janissary.fundraising.dto.request.CreateEventRequest;
+import com.janissary.fundraising.dto.response.CreateEventResponse;
+import com.janissary.fundraising.dto.response.EventFinancialReportItem;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +14,13 @@ import java.util.List;
 @RestController
 public class EventController {
     @PostMapping("/events")
-    public ResponseEntity<EventDto> createEvent(@RequestBody @Valid CreateEventRequest req) {
+    public ResponseEntity<CreateEventResponse> createEvent(@RequestBody @Valid CreateEventRequest req) {
         // TODO: create new event, return event id
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     @GetMapping("/events")
-    public List<EventDto> eventFinancialReport() {
+    public List<EventFinancialReportItem> eventFinancialReport() {
         // TODO: return account sum of each event
         throw new UnsupportedOperationException("not implemented");
     }

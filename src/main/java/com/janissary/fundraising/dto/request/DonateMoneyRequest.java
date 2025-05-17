@@ -1,4 +1,4 @@
-package com.janissary.fundraising.request;
+package com.janissary.fundraising.dto.request;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
