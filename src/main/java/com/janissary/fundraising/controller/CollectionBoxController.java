@@ -2,7 +2,6 @@ package com.janissary.fundraising.controller;
 
 import com.janissary.fundraising.dto.CollectionBoxDto;
 import com.janissary.fundraising.dto.request.AssignBoxRequest;
-import com.janissary.fundraising.dto.request.CreateCollectionBoxRequest;
 import com.janissary.fundraising.dto.request.DonateMoneyRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,7 @@ import java.util.List;
 @RestController
 public class CollectionBoxController {
     @PostMapping("/boxes")
-    public ResponseEntity<CollectionBoxDto> createBox(@RequestBody @Valid CreateCollectionBoxRequest createRequest) {
+    public ResponseEntity<CollectionBoxDto> createBox() {
         // TODO: create new box, return newly created box
         throw new UnsupportedOperationException("TODO");
     }
