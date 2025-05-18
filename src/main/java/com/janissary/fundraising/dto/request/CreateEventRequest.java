@@ -6,7 +6,9 @@ import jakarta.validation.constraints.Size;
 
 public record CreateEventRequest (
     @NotNull
-    @NotBlank String name,
+    @NotBlank
+    @Size(max = 255)
+    String name,
 
     @NotBlank
     @Size(min = 3, max = 3)
