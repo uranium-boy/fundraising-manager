@@ -26,7 +26,6 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public CreateEventResponse createEvent(CreateEventRequest createRequest) {
-
         Currency defaultCurrency = currencyRepository.findById(createRequest.defaultCurrencyCode())
                 .orElseThrow(() -> new IllegalArgumentException("Currency code not found"));
 
