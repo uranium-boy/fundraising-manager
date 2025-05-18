@@ -1,9 +1,9 @@
 package com.janissary.fundraising.controller;
 
-import com.janissary.fundraising.dto.EventDto;
 import com.janissary.fundraising.dto.request.CreateEventRequest;
 import com.janissary.fundraising.dto.response.CreateEventResponse;
 import com.janissary.fundraising.dto.response.EventFinancialReportItem;
+import com.janissary.fundraising.service.impl.EventServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +13,23 @@ import java.util.List;
 
 @RestController
 public class EventController {
+
+    final
+    EventServiceImpl service;
+
+    public EventController(EventServiceImpl service) {
+        this.service = service;
+    }
+
     @PostMapping("/events")
-    public ResponseEntity<CreateEventResponse> createEvent(@RequestBody @Valid CreateEventRequest req) {
-        // TODO: create new event, return event id
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<CreateEventResponse> createEvent(@RequestBody @Valid CreateEventRequest createRequest) {
+        CreateEventResponse response = service.createEvent(createRequest);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/events")
-    public List<EventFinancialReportItem> eventFinancialReport() {
-        // TODO: return account sum of each event
-        throw new UnsupportedOperationException("not implemented");
+    public ResponseEntity<List<EventFinancialReportItem>> eventFinancialReport() {
+        List<EventFinancialReportItem> reportItems = service.getFinancialReport();
+        return new ResponseEntity<>(reportItems, HttpStatus.OK);
     }
 }
