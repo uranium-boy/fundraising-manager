@@ -14,8 +14,7 @@ import java.util.List;
 @RestController
 public class EventController {
 
-    final
-    EventServiceImpl service;
+    private final EventServiceImpl service;
 
     public EventController(EventServiceImpl service) {
         this.service = service;

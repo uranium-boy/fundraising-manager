@@ -3,6 +3,7 @@ package com.janissary.fundraising.service.impl;
 import com.janissary.fundraising.dto.request.CreateEventRequest;
 import com.janissary.fundraising.dto.response.CreateEventResponse;
 import com.janissary.fundraising.dto.response.EventFinancialReportItem;
+import com.janissary.fundraising.exception.UnacceptedCurrencyException;
 import com.janissary.fundraising.model.Currency;
 import com.janissary.fundraising.model.Event;
 import com.janissary.fundraising.repository.CurrencyRepository;
@@ -27,7 +28,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public CreateEventResponse createEvent(CreateEventRequest createRequest) {
         Currency defaultCurrency = currencyRepository.findById(createRequest.defaultCurrencyCode())
-                .orElseThrow(() -> new IllegalArgumentException("Currency code not found"));
+                .orElseThrow(() -> new UnacceptedCurrencyException(createRequest.defaultCurrencyCode()));
 
         Event event = Event.builder()
                 .name(createRequest.name())
