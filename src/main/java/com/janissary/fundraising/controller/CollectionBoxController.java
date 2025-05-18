@@ -3,6 +3,8 @@ package com.janissary.fundraising.controller;
 import com.janissary.fundraising.dto.CollectionBoxDto;
 import com.janissary.fundraising.dto.request.AssignBoxRequest;
 import com.janissary.fundraising.dto.request.DonateMoneyRequest;
+import com.janissary.fundraising.dto.response.CollectionBoxStatus;
+import com.janissary.fundraising.dto.response.CreateCollectionBoxResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +15,13 @@ import java.util.List;
 @RestController
 public class CollectionBoxController {
     @PostMapping("/boxes")
-    public ResponseEntity<CollectionBoxDto> createBox() {
+    public ResponseEntity<CreateCollectionBoxResponse> createBox() {
         // TODO: create new box, return newly created box
         throw new UnsupportedOperationException("TODO");
     }
 
     @GetMapping("/boxes")
-    public ResponseEntity<List<CollectionBoxDto>> getBoxes() {
+    public ResponseEntity<List<CollectionBoxStatus>> getBoxes() {
         // TODO: return all boxes, don't specify the event, no actual value
         throw new UnsupportedOperationException("TODO");
     }
