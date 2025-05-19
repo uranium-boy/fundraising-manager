@@ -4,6 +4,7 @@ import com.janissary.fundraising.dto.request.AssignBoxRequest;
 import com.janissary.fundraising.dto.request.DonateMoneyRequest;
 import com.janissary.fundraising.dto.response.CollectionBoxInfo;
 import com.janissary.fundraising.dto.response.CreateCollectionBoxResponse;
+import com.janissary.fundraising.exception.CollectionBoxNotAssignedException;
 import com.janissary.fundraising.exception.CollectionBoxNotFoundException;
 import com.janissary.fundraising.exception.EventNotFoundException;
 import com.janissary.fundraising.exception.UnacceptedCurrencyException;
@@ -14,9 +15,11 @@ import com.janissary.fundraising.repository.CollectionBoxRepository;
 import com.janissary.fundraising.repository.CurrencyRepository;
 import com.janissary.fundraising.repository.EventRepository;
 import com.janissary.fundraising.service.CollectionBoxService;
+import com.janissary.fundraising.service.ExchangeService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -24,15 +27,18 @@ public class CollectionBoxServiceImpl implements CollectionBoxService {
     private final CollectionBoxRepository collectionBoxRepository;
     private final EventRepository eventRepository;
     private final CurrencyRepository currencyRepository;
+    private final ExchangeService exchangeService;
 
     public CollectionBoxServiceImpl(
             CollectionBoxRepository collectionBoxRepository,
             EventRepository eventRepository,
-            CurrencyRepository currencyRepository
+            CurrencyRepository currencyRepository,
+            ExchangeService exchangeService
     ) {
         this.collectionBoxRepository = collectionBoxRepository;
         this.eventRepository = eventRepository;
         this.currencyRepository = currencyRepository;
+        this.exchangeService = exchangeService;
     }
 
     @Override
@@ -95,8 +101,28 @@ public class CollectionBoxServiceImpl implements CollectionBoxService {
 
     @Override
     public void transferMoney(Long boxId) {
+        CollectionBox collectionBox = collectionBoxRepository.findById(boxId)
+                .orElseThrow(() -> new CollectionBoxNotFoundException(boxId.toString()));
 
-        throw new UnsupportedOperationException("TODO");
+        Event event = collectionBox.getEvent();
+
+        if (event == null) {
+            throw new CollectionBoxNotAssignedException(boxId.toString());
+        }
+
+        BigDecimal total = collectionBox.getCollectedAmounts().entrySet().stream()
+                .map(entry -> exchangeService.exchange(
+                        entry.getValue(),
+                        entry.getKey(),
+                        collectionBox.getEvent().getDefaultCurrency())
+                )
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        event.setTotalCollected(event.getTotalCollected().add(total));
+        eventRepository.save(event);
+
+        collectionBox.setCollectedAmounts(Collections.emptyMap());
+        collectionBoxRepository.save(collectionBox);
     }
 
     @Override
