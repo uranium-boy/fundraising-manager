@@ -1,5 +1,6 @@
 package com.janissary.fundraising.service;
 
+import com.janissary.fundraising.dto.request.AssignBoxRequest;
 import com.janissary.fundraising.dto.request.DonateMoneyRequest;
 import com.janissary.fundraising.dto.response.CollectionBoxInfo;
 import com.janissary.fundraising.dto.response.CreateCollectionBoxResponse;
@@ -11,7 +12,7 @@ public interface CollectionBoxService {
 
     List<CollectionBoxInfo> getBoxes();
 
-    void assignBoxToEvent(Long eventId);
+    void assignBoxToEvent(Long boxId, AssignBoxRequest assignRequest);
 
     void donateMoney(Long boxId, DonateMoneyRequest donateRequest);
 
