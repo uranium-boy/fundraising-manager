@@ -66,6 +66,7 @@ public class CollectionBoxServiceImpl implements CollectionBoxService {
 
     @Override
     public void donateMoney(Long boxId, DonateMoneyRequest donateRequest) {
+        // TODO: can money be put in an unassigned box?
         CollectionBox collectionBox = collectionBoxRepository.findById(boxId)
                 .orElseThrow(() -> new CollectionBoxNotFoundException(boxId.toString()));
 
