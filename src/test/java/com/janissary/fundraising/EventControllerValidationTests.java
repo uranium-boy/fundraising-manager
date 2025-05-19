@@ -1,5 +1,6 @@
 package com.janissary.fundraising;
 
+import com.janissary.fundraising.service.impl.CollectionBoxServiceImpl;
 import com.janissary.fundraising.service.impl.EventServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,6 +22,9 @@ public class EventControllerValidationTests {
 
     @MockitoBean
     private EventServiceImpl eventService;
+
+    @MockitoBean
+    private CollectionBoxServiceImpl collectionBoxService;
 
     @Test
     public void createEvent_withCorrectData_returnsCreated() throws Exception {

@@ -1,6 +1,8 @@
 package com.janissary.fundraising;
 
+import com.janissary.fundraising.service.impl.CollectionBoxServiceImpl;
 import com.janissary.fundraising.service.impl.EventServiceImpl;
+import com.janissary.fundraising.service.impl.ExchangeServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
@@ -22,6 +24,9 @@ public class CollectionBoxControllerValidationTests {
     @MockitoBean
     private EventServiceImpl eventService;
 
+    @MockitoBean
+    private CollectionBoxServiceImpl collectionBoxService;
+
     @Test
     public void assignBoxRequest_withCorrectData_returnsNotImplemented() throws Exception {
         String requestBody = """
@@ -33,7 +38,7 @@ public class CollectionBoxControllerValidationTests {
         mockMvc.perform(MockMvcRequestBuilders.post("/boxes/1/assign")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
-                .andExpect(status().isNotImplemented());
+                .andExpect(status().is2xxSuccessful());
     }
 
     @ParameterizedTest
@@ -64,7 +69,7 @@ public class CollectionBoxControllerValidationTests {
         mockMvc.perform(MockMvcRequestBuilders.post("/boxes/1/donate")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
-                .andExpect(status().isNotImplemented());
+                .andExpect(status().is2xxSuccessful());
     }
 
     @ParameterizedTest
