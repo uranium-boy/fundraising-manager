@@ -1,12 +1,17 @@
 package com.janissary.fundraising.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Map;
 
 @Entity
 @Table(name = "collection_boxes")
+@Getter
+@Setter
 public class CollectionBox {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +28,5 @@ public class CollectionBox {
     )
     @MapKeyJoinColumn(name = "currency_id")
     @Column(name = "amount", precision = 19, scale = 6)
-    private Map<Currency, BigDecimal> collectedAmounts;
+    private Map<Currency, BigDecimal> collectedAmounts = new HashMap<>();
 }

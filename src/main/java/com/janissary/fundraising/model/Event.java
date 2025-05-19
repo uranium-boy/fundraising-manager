@@ -18,6 +18,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // TODO: should names be unique?
     @Column(nullable = false)
     private String name;
 
