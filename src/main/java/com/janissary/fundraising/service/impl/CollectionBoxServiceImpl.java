@@ -72,9 +72,12 @@ public class CollectionBoxServiceImpl implements CollectionBoxService {
 
     @Override
     public void donateMoney(Long boxId, DonateMoneyRequest donateRequest) {
-        // TODO: can money be put in an unassigned box?
         CollectionBox collectionBox = collectionBoxRepository.findById(boxId)
                 .orElseThrow(() -> new CollectionBoxNotFoundException(boxId.toString()));
+
+        if (collectionBox.getEvent() == null) {
+            throw new CollectionBoxNotAssignedException(boxId.toString());
+        }
 
         Currency currency = currencyRepository.findById(donateRequest.currency())
                 .orElseThrow(() -> new UnacceptedCurrencyException(donateRequest.currency()));
@@ -84,17 +87,6 @@ public class CollectionBoxServiceImpl implements CollectionBoxService {
                 donateRequest.amount(),
                 BigDecimal::add
         );
-        /*
-       Map<Currency, BigDecimal> amountsMap = collectionBox.getCollectedAmounts();
-
-       if (amountsMap.containsKey(currency)) {
-           amountsMap.put(currency, amountsMap.get(currency).add(donateRequest.amount()));
-       } else {
-           amountsMap.put(currency, donateRequest.amount());
-       }
-
-       collectionBox.setCollectedAmounts(amountsMap);
-        */
 
         collectionBoxRepository.save(collectionBox);
     }

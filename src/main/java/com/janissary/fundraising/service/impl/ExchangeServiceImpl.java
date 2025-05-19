@@ -13,17 +13,18 @@ public class ExchangeServiceImpl implements ExchangeService {
 
     @Override
     public BigDecimal exchange(BigDecimal amount, Currency source, Currency target) {
-        // assumptions:
-        // amount is validated on input and isn't negative or zero at this point
-        // source and target currencies can be the same and checking logic is implemented here, not in controllers
-        if (source.equals(target)) {
+        if (amount == null) {
+            throw new IllegalArgumentException("Amount cannot be null");
+        }
+        if (source.equals(target) || amount.compareTo(BigDecimal.ZERO) <= 0) {
             return amount;
         }
 
         BigDecimal sourceRate = source.getExchangeRateToBase();
         BigDecimal targetRate = target.getExchangeRateToBase();
 
-        if (sourceRate == null || targetRate == null || sourceRate.compareTo(BigDecimal.ZERO) == 0 || targetRate.compareTo(BigDecimal.ZERO) == 0) {
+        if (sourceRate == null ||sourceRate.compareTo(BigDecimal.ZERO) == 0 ||
+                targetRate == null || targetRate.compareTo(BigDecimal.ZERO) == 0) {
             throw new IllegalStateException("Invalid exchange rates");
         }
 
