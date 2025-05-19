@@ -7,6 +7,7 @@ public record ErrorResponse(
         int statusCode,
         String statusName,
         String message,
+        String path,
         ZonedDateTime timestamp
 ) {
 }
