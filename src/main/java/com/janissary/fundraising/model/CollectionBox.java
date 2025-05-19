@@ -27,6 +27,6 @@ public class CollectionBox {
             joinColumns = @JoinColumn(name = "collection_box_id")
     )
     @MapKeyJoinColumn(name = "currency_id")
-    @Column(name = "amount", precision = 19, scale = 6)
+    @Column(name = "amount", precision = 19, scale = 2)
     private Map<Currency, BigDecimal> collectedAmounts = new HashMap<>();
 }
